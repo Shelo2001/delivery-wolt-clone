@@ -17,3 +17,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 });
 Route::get('/company/search', [CompanyObjectController::class, 'getObjectBySearch']);
+Route::get('/categories', [CompanyObjectController::class, 'getMostUsedCategories']);
+Route::get('/objects/all', [CompanyObjectController::class, 'getAllObjects']);
+Route::get('/objects/{category}', [CompanyObjectController::class, 'getObjectByCategory']);

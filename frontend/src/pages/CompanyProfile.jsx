@@ -35,7 +35,7 @@ const CompanyProfile = () => {
                         ✕
                     </label>
                     <h3 className="text-2xl font-bold">
-                        Create company's new object!
+                        Create {user?.name}'s new object!
                     </h3>
                     <NewObject />
                 </div>
@@ -51,7 +51,7 @@ const CompanyProfile = () => {
                             key={companyObject.id}
                             className="w-[90%] sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4 px-4 mb-8"
                         >
-                            <Link to={`/object/${companyObject.id}`}>
+                            <Link to={`/company/object/${companyObject.id}`}>
                                 <div className="bg-white rounded-lg shadow-lg overflow-hidden">
                                     <img
                                         src={`${

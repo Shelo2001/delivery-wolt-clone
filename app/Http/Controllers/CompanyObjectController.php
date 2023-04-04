@@ -55,4 +55,19 @@ class CompanyObjectController extends Controller
         $results = CompanyObject::where('title', 'like', '%'.$searchTerm.'%')->orWhere('location', 'like', '%'.$searchTerm.'%')->get();
         return response()->json($results);
     }
+
+    public function getMostUsedCategories(){
+        $categories = CompanyObject::selectRaw('category, count(*) as count')->groupBy('category')->orderBy('count','desc')->take(4)->get();
+        return response()->json($categories);
+    }
+
+    public function getAllObjects(){
+        $objects = CompanyObject::orderBy('created_at', 'desc')->get();
+        return response()->json($objects);
+    }
+
+    public function getObjectByCategory($category){
+        $objects = CompanyObject::where('category',$category)->get();
+        return response()->json($objects);
+    }
 }

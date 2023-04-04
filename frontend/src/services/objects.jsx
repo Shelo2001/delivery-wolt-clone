@@ -6,6 +6,7 @@ export const useObject = create(
     devtools((set) => ({
         loading: false,
         companyObjects: [],
+        allCategories: [],
         errorObject: null,
         createObject: async (objectData) => {
             try {
@@ -82,6 +83,27 @@ export const useObject = create(
                     });
                 }, 3000);
             }
+        },
+        getCategories: async () => {
+            set({ loading: true });
+            const res = await axios.get(
+                `${import.meta.env.VITE_BASE_API_URL}/categories`
+            );
+            set({ allCategories: res.data, loading: false });
+        },
+        getAllObjects: async () => {
+            set({ loading: true });
+            const res = await axios.get(
+                `${import.meta.env.VITE_BASE_API_URL}/objects/all`
+            );
+            set({ companyObjects: res.data, loading: false });
+        },
+        getObjectsByCategory: async (category) => {
+            set({ loading: true });
+            const res = await axios.get(
+                `${import.meta.env.VITE_BASE_API_URL}/objects/${category}`
+            );
+            set({ companyObjects: res.data, loading: false });
         },
     }))
 );

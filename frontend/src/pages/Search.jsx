@@ -17,9 +17,7 @@ const Search = () => {
     return (
         <div>
             {loading ? (
-                <div class="flex items-center justify-center h-5/6">
-                    <Spinner />
-                </div>
+                <Spinner />
             ) : (
                 <>
                     <h2 className="text-center my-5 text-3xl">
@@ -35,7 +33,9 @@ const Search = () => {
                                         key={companyObject.id}
                                         className="w-[90%] sm:w-1/2 relative md:w-1/2 lg:w-1/4 xl:w-1/4 px-4 mb-8"
                                     >
-                                        <Link to={`/${companyObject.id}`}>
+                                        <Link
+                                            to={`/object/${companyObject.id}`}
+                                        >
                                             <div className="bg-white  rounded-lg shadow-lg overflow-hidden">
                                                 <img
                                                     src={`${
