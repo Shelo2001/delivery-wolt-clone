@@ -6,6 +6,7 @@ export const useObject = create(
     devtools((set) => ({
         loading: false,
         companyObjects: [],
+        companyObject: {},
         allCategories: [],
         errorObject: null,
         createObject: async (objectData) => {
@@ -104,6 +105,13 @@ export const useObject = create(
                 `${import.meta.env.VITE_BASE_API_URL}/objects/${category}`
             );
             set({ companyObjects: res.data, loading: false });
+        },
+        getObjectsById: async (id) => {
+            set({ loading: true });
+            const res = await axios.get(
+                `${import.meta.env.VITE_BASE_API_URL}/company/objects/${id}`
+            );
+            set({ companyObject: res.data, loading: false });
         },
     }))
 );

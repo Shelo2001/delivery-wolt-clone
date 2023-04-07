@@ -41,7 +41,7 @@ const Register = () => {
     return (
         <div className="form-control py-4 w-full">
             {errorRegister && (
-                <div className="alert alert-error shadow-lg">
+                <div className="text-white alert alert-error shadow-lg">
                     <div>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

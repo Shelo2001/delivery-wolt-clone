@@ -35,7 +35,7 @@ const NewObject = () => {
     return (
         <form onSubmit={handleSubmit} className="max-w-md mx-auto p-6 bg-white">
             {errorObject && (
-                <div className="alert alert-error shadow-lg">
+                <div className="alert text-white alert-error shadow-lg">
                     <div>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

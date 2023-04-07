@@ -57,9 +57,6 @@ const ObjectsByCategory = () => {
                                         </div>
                                     </div>
                                 </Link>
-                                <button className="btn rounded-none rounded-r-sm top-0 text-white right-[15px] btn-primary absolute">
-                                    <AiOutlineShoppingCart size={20} />
-                                </button>
                             </div>
                         ))}
                     </div>

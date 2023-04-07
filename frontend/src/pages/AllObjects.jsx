@@ -37,9 +37,11 @@ const AllObjects = () => {
                                             alt=""
                                             className="h-48 w-full object-cover hover:scale-110 transition-all duration-300"
                                         />
-                                        <div className="badge mt-5 mx-2 badge-primary badge-outline">
-                                            {companyObject.category}
-                                        </div>
+                                        <Link to={`/${companyObject.category}`}>
+                                            <div className="badge mt-5 mx-2 badge-primary badge-outline hover:scale-110 transition-all duration-300">
+                                                {companyObject.category}
+                                            </div>
+                                        </Link>
                                         <div className="p-6">
                                             <h2 className="text-2xl font-bold text-gray-800 mb-4">
                                                 {companyObject.title}
@@ -54,9 +56,6 @@ const AllObjects = () => {
                                         </div>
                                     </div>
                                 </Link>
-                                <button className="btn rounded-none rounded-r-sm top-0 text-white right-[15px] btn-primary absolute">
-                                    <AiOutlineShoppingCart size={20} />
-                                </button>
                             </div>
                         ))}
                     </div>

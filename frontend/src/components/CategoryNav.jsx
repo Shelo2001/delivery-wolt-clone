@@ -11,8 +11,6 @@ const CategoryNav = () => {
         getCategories();
     }, []);
 
-    console.log(pathname.split("/")[1]);
-
     return (
         <div className="text-center  flex gap-4 justify-center my-10">
             <Link to="/home">
