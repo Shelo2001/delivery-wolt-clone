@@ -70,4 +70,9 @@ class CompanyObjectController extends Controller
         $objects = CompanyObject::where('category',$category)->get();
         return response()->json($objects);
     }
+
+    public function getObjectById($id){
+        $object = CompanyObject::where('id',$id)->first();
+        return response()->json($object);
+    }
 }

@@ -20,3 +20,4 @@ Route::get('/company/search', [CompanyObjectController::class, 'getObjectBySearc
 Route::get('/categories', [CompanyObjectController::class, 'getMostUsedCategories']);
 Route::get('/objects/all', [CompanyObjectController::class, 'getAllObjects']);
 Route::get('/objects/{category}', [CompanyObjectController::class, 'getObjectByCategory']);
+Route::get('/company/objects/{id}', [CompanyObjectController::class, 'getObjectById']);
