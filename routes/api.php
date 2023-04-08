@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ObjectDataController;
 use App\Http\Controllers\CompanyObjectController;
 
 Route::post('/register', [UserController::class, 'register']);
@@ -14,7 +15,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/logout', [UserController::class, 'logout']);
     Route::post('/company/object/create', [CompanyObjectController::class, 'createObject']);
     Route::get('/company/object/{id}', [CompanyObjectController::class, 'getMyObjects']);
-
+    Route::post('/company/object/data/create', [ObjectDataController::class, 'createObjectData']);
 });
 Route::get('/company/search', [CompanyObjectController::class, 'getObjectBySearch']);
 Route::get('/categories', [CompanyObjectController::class, 'getMostUsedCategories']);

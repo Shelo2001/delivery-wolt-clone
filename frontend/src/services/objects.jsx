@@ -8,6 +8,7 @@ export const useObject = create(
         companyObjects: [],
         companyObject: {},
         allCategories: [],
+        objectDistinctCategories: [],
         errorObject: null,
         createObject: async (objectData) => {
             try {
@@ -111,7 +112,39 @@ export const useObject = create(
             const res = await axios.get(
                 `${import.meta.env.VITE_BASE_API_URL}/company/objects/${id}`
             );
-            set({ companyObject: res.data, loading: false });
+            set({
+                companyObject: res.data.object,
+                objectDistinctCategories: res.data.categories,
+                loading: false,
+            });
+        },
+        createObjectData: async (objectData) => {
+            try {
+                const token = localStorage.getItem("token");
+                const res = await axios.post(
+                    `${
+                        import.meta.env.VITE_BASE_API_URL
+                    }/company/object/data/create`,
+                    objectData,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+                window.location.reload();
+            } catch (error) {
+                set({
+                    errorObject:
+                        (await error?.response?.data?.error) ||
+                        (await error?.response?.data?.message),
+                });
+                setTimeout(() => {
+                    set({
+                        errorObject: null,
+                    });
+                }, 3000);
+            }
         },
     }))
 );

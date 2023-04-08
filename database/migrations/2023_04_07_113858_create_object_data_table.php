@@ -18,8 +18,8 @@ return new class extends Migration
             $table->integer('price');
             $table->string('image')->nullable();
             $table->text('description');
-            $table->unsignedBigInteger('company_objects_id')->unsigned();
-            $table->foreign('company_objects_id')->references('id')->on('company_objects')->onDelete('cascade');
+            $table->unsignedBigInteger('company_object_id')->unsigned();
+            $table->foreign('company_object_id')->references('id')->on('company_objects')->onDelete('cascade');
             $table->timestamps();
         });
     }

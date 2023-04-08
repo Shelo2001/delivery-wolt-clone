@@ -72,7 +72,8 @@ class CompanyObjectController extends Controller
     }
 
     public function getObjectById($id){
-        $object = CompanyObject::where('id',$id)->first();
-        return response()->json($object);
+        $object = CompanyObject::where('id',$id)->with("objectData")->first();
+        $categories = $object->objectData->pluck('category')->unique();
+        return response()->json(["object"=>$object, "categories"=>$categories]);
     }
 }
