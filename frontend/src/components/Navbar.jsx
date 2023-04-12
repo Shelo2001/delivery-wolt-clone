@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import avatar from "../assets/avatar.png";
 import { Link, useNavigate } from "react-router-dom";
-import { AiOutlineUser, AiOutlineShoppingCart } from "react-icons/ai";
-import { GrNotification } from "react-icons/gr";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 import Register from "./Register";
 import Login from "./Login";
 import { useUsers } from "../services/users";
+import { useCart } from "../services/cart";
 
 const Navbar = () => {
     const [query, setQuery] = useState("");
@@ -27,6 +27,11 @@ const Navbar = () => {
     const logoutHandler = () => {
         logout();
     };
+
+    const { items } = useCart();
+    const prices = items.map((item) => item.quantity * item.price);
+
+    const total = prices.reduce((acc, cur) => acc + cur, 0);
 
     return (
         <div className="navbar bg-primary">
@@ -53,21 +58,53 @@ const Navbar = () => {
                         <div className="indicator">
                             <AiOutlineShoppingCart size={20} />
                             <span className="badge badge-sm indicator-item">
-                                8
+                                {items.length}
                             </span>
                         </div>
                     </label>
                     <div
                         tabIndex={0}
-                        className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow"
+                        className="mt-3 card card-compact dropdown-content  w-[260px] bg-base-100 shadow"
                     >
                         <div className="card-body">
-                            <span className="font-bold text-lg">8 Items</span>
-                            <span className="text-info">Subtotal: $999</span>
+                            <span className="font-bold text-lg">
+                                {items.length} Items
+                            </span>
+                            <span className="text-info flex">
+                                Subtotal: ₾ {total}
+                            </span>
                             <div className="card-actions">
-                                <button className="btn btn-primary text-white btn-block">
-                                    View cart
-                                </button>
+                                <Link className="w-full" to="/order/checkout">
+                                    <button className="btn btn-primary text-white btn-block">
+                                        View cart
+                                    </button>
+                                </Link>
+                            </div>
+                            <div className=" mt-3">
+                                <p className="my-2 text-center">
+                                    {total === 0 ? (
+                                        <></>
+                                    ) : total < 15 ? (
+                                        "Reach min 15 gel to not pay extra for delivery"
+                                    ) : (
+                                        "🎉 Hooray! you're not paying extra for delivery"
+                                    )}
+                                </p>
+                                {total === 0 ? (
+                                    <></>
+                                ) : total < 15 ? (
+                                    <progress
+                                        className="progress progress-error w-56"
+                                        value={total}
+                                        max="15"
+                                    ></progress>
+                                ) : (
+                                    <progress
+                                        className="progress progress-success w-56"
+                                        value={total}
+                                        max="15"
+                                    ></progress>
+                                )}
                             </div>
                         </div>
                     </div>

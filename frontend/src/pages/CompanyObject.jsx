@@ -13,8 +13,6 @@ const CompanyObject = () => {
     } = useObject();
     const { id } = useParams();
 
-    console.log(objectDistinctCategories);
-
     const [image, setImage] = useState(null);
     const [preview, setPreview] = useState(null);
     const [title, setTitle] = useState("");

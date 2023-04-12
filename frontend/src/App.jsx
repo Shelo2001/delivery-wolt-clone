@@ -10,6 +10,7 @@ import CompanyObject from "./pages/CompanyObject";
 import AllObjects from "./pages/AllObjects";
 import ObjectsByCategory from "./pages/ObjectsByCategory";
 import UserObject from "./pages/UserObject";
+import Checkout from "./pages/Checkout";
 
 const router = createBrowserRouter([
     {
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
             { path: "/search/:name", element: <Search /> },
             { path: "/company/object/:id", element: <CompanyObject /> },
             { path: "/object/:id", element: <UserObject /> },
+            { path: "/order/checkout", element: <Checkout /> },
         ],
     },
     { path: "/*", element: <NotFound /> },

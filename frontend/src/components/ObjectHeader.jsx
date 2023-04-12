@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { AiOutlinePlus } from "react-icons/ai";
+import { MdLocationPin } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { useCart } from "../services/cart";
 
 const ObjectHeader = ({ companyObject, objectDistinctCategories }) => {
     const categoryValues = Object.values(objectDistinctCategories);
@@ -7,6 +10,30 @@ const ObjectHeader = ({ companyObject, objectDistinctCategories }) => {
     const mappedValues = categoryValues.map((category) => {
         return category;
     });
+
+    const [category, setCategory] = useState("");
+    const [objectData, setObjectData] = useState([]);
+
+    useEffect(() => {
+        if (companyObject) {
+            setObjectData(companyObject?.object_data);
+        }
+    }, [companyObject]);
+
+    const categoryFilter = (category) => {
+        setCategory(category);
+        const filteredData = companyObject.object_data.filter(
+            (obj) => obj.category === category
+        );
+        setObjectData(filteredData);
+    };
+    const { addToCart, items } = useCart();
+
+    const addToCartHandler = (item) => {
+        addToCart(item);
+    };
+
+    console.log(items);
 
     return (
         <div>
@@ -48,14 +75,65 @@ const ObjectHeader = ({ companyObject, objectDistinctCategories }) => {
                         <div
                             key={c}
                             className={
-                                category === c ? `bg-primary` : "bg-red-500"
+                                category === c
+                                    ? `bg-blue-100 flex items-center gap-[15px] text-primary cursor-pointer font-bold p-2 m-1 rounded-2xl`
+                                    : "hover:bg-gray-200 flex items-center gap-[15px] cursor-pointer rounded-2xl m-1 p-2"
                             }
+                            onClick={() => categoryFilter(c)}
                         >
+                            <img
+                                className="w-[50px] rounded-lg h-[50px]"
+                                src={`${
+                                    import.meta.env.VITE_SHOW_IMAGE_PATH
+                                }/upload/${companyObject?.image}`}
+                            />{" "}
                             {c}
                         </div>
                     ))}
                 </div>
-                <div className=" w-[80%] "></div>
+                <div className="flex flex-wrap w-[80%]">
+                    {objectData?.map((data) => (
+                        <div
+                            key={data.id}
+                            className="w-[100%] sm:w-1/2 relative md:w-1/2 lg:w-1/2 xl:w-1/2 px-4 mb-8"
+                        >
+                            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+                                <img
+                                    src={`${
+                                        import.meta.env.VITE_SHOW_IMAGE_PATH
+                                    }/upload/${data.image}`}
+                                    alt=""
+                                    className="h-48 w-full object-cover hover:scale-110 transition-all duration-300"
+                                />
+                                <div className="badge mt-5 mx-2 badge-primary badge-outline ">
+                                    {data.category}
+                                </div>
+                                <div className="p-6">
+                                    <h2 className="text-2xl font-bold text-gray-800 mb-4">
+                                        {data.title}
+                                    </h2>
+                                    <div className="flex ">
+                                        <p className="flex text-gray-600">
+                                            {data.description}
+                                        </p>
+                                    </div>
+                                    <div className="flex mt-3 font-bold ">
+                                        <p className="flex text-gray-600">
+                                            GEL &nbsp;
+                                            {Number(data.price)}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <button
+                                onClick={() => addToCartHandler(data)}
+                                className="btn-primary rounded-tr-[10px] rounded-bl-[30px] text-white p-5 absolute top-0 right-[15px]"
+                            >
+                                <AiOutlinePlus size={20} />
+                            </button>
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     );
